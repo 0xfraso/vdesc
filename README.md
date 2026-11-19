@@ -103,3 +103,7 @@ See `DESIGN.md` for the principles this tool encodes.
 [VideoAgent](https://github.com/HKUDS/VideoAgent) (HKUDS) — the transcript +
 frame-OCR + grounded-writer flow and its prompts originated there.
 
+## License
+
+[MIT](LICENSE)
+
