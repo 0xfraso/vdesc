@@ -64,3 +64,10 @@ cache keys, so editing a prompt invalidates exactly the caches it affects.
 
 Config files reference environment variable *names* (`api_key_env`); keys are read
 from the environment (`.env` supported, gitignored).
+
+---
+
+These principles and the pipeline they describe were first implemented on top of
+[VideoAgent](https://github.com/HKUDS/VideoAgent) (HKUDS); this repository is the
+distilled, standalone form of that work.
+
