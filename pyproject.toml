@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vdesc"
+version = "0.1.0"
+description = "Slim video-description pipeline: ASR transcript + frame OCR + grounded long-form writer"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "fraso" }]
+dependencies = [
+    "openai>=1.60",
+    "tenacity>=8.2",
+]
+
+[project.optional-dependencies]
+local = ["faster-whisper>=1.0"]
+youtube = ["yt-dlp"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+vdesc = "vdesc.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vdesc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
