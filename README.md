@@ -94,3 +94,12 @@ invalidates deliberately.
 ```
 
 See `DESIGN.md` for the principles this tool encodes.
+
+---
+
+## Credits
+
+`vdesc` was distilled from the describe-video pipeline we built on top of
+[VideoAgent](https://github.com/HKUDS/VideoAgent) (HKUDS) — the transcript +
+frame-OCR + grounded-writer flow and its prompts originated there.
+
