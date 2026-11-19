@@ -1,0 +1,44 @@
+# vdesc configuration — copy to config.toml (gitignored) and adjust.
+# Secrets live in environment variables only: api_key_env names the env var.
+
+[pipeline]
+out_dir = "out"
+depth = "standard"          # brief | standard | max
+frame_interval = 5          # seconds between sampled frames
+max_width = 1600            # frames are downscaled to at most this width
+frames_per_call = 6         # frames per vision API call
+vision_workers = 4          # parallel vision calls
+writer_workers = 3          # parallel writer section calls
+summary_words = 1200
+context = "a technical video (code editors, terminals and engine/UI settings panels may appear)"
+
+[asr]
+provider = "auto"           # groq | openai | custom | local | auto
+# language = "en"           # omit for auto-detect
+# prompt = ""               # vocabulary hint (~224 token limit), e.g. "Unity, HLSL, G-buffer"
+chunk_seconds = 1800        # split longer audio into chunks of this length
+overlap_seconds = 2.0
+max_upload_mb = 20          # stay under provider caps (25 MB on Groq free tier)
+
+[vision]                    # must point at a VISION-capable model
+# Example: z.ai coding endpoint
+# base_url = "https://api.z.ai/api/coding/paas/v4"
+# model = "glm-5.3-flash"
+# api_key_env = "ZAI_API_KEY"
+# Example: OpenAI
+# base_url = "https://api.openai.com/v1"
+# model = "gpt-4.1"
+# api_key_env = "OPENAI_API_KEY"
+
+[text]                      # long-form writer; any text model
+# base_url = "https://api.z.ai/api/coding/paas/v4"
+# model = "glm-5.3-flash"
+# api_key_env = "ZAI_API_KEY"
+
+# Optional per-model rates for the usage ledger's cost estimates.
+# [pricing."glm-5.3-flash"]
+# input_per_m = 0.15
+# output_per_m = 0.50
+
+# [pricing."whisper-large-v3-turbo"]
+# audio_per_hour = 0.04
