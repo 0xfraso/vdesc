@@ -20,6 +20,11 @@ uv venv .venv && uv pip install -e ".[dev]" --python .venv/bin/python
 uv pip install -e ".[local,youtube]"   # local faster-whisper ASR, YouTube URLs
 ```
 
+After moving or renaming the repo, run `bash scripts/bootstrap.sh`. A venv
+hardcodes its birth path in shebangs and editable-install `.pth` files, so the
+old one goes stale; the script detects that and recreates the venv, and is
+safe to rerun any time. `vdesc doctor` reports the same condition.
+
 System dependency: `ffmpeg`.
 
 ## Configure
