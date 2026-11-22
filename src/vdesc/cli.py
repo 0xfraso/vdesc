@@ -378,6 +378,21 @@ def cmd_summarize(a) -> None:
         _print_totals(ws)
 
 
+def _stale_venv_scripts(bin_dir: Path) -> list[Path]:
+    stale: list[Path] = []
+    for script in sorted(bin_dir.glob("*")):
+        if not script.is_file():
+            continue
+        with script.open("rb") as fh:
+            first = fh.readline()
+        if not first.startswith(b"#!"):
+            continue
+        words = first[2:].split()
+        if not words or not Path(words[0].decode("utf-8", "replace")).exists():
+            stale.append(script)
+    return stale
+
+
 def cmd_doctor(a) -> None:
     cfg = load_config(a.config)
     print(f"vdesc {__version__}")
@@ -385,6 +400,10 @@ def cmd_doctor(a) -> None:
 
     ensure_ffmpeg()
     print("ffmpeg/ffprobe: ok")
+
+    stale = _stale_venv_scripts(Path(sys.executable).parent)
+    print(f"venv: {len(stale)} stale script(s) — run scripts/bootstrap.sh"
+          if stale else "venv: ok")
 
     name = cfg.asr.provider
     if name == "auto":
